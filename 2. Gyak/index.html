@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <title>QUnit példa</title>
+
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-3.0.0.css">
+</head>
+
+<body>
+
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
+    <script src="https://code.jquery.com/qunit/qunit-3.0.0.js"></script>
+
+    <script>
+
+        // Tesztelendő függvény
+        function square(x) {
+            return x * x;
+        }
+
+        // QUnit tesztek
+        QUnit.module("square függvény tesztelése");
+
+        QUnit.test("Pozitív szám négyzete", function (assert) {
+            assert.equal(square(5), 25);
+        });
+
+        QUnit.test("Negatív szám négyzete", function (assert) {
+            assert.equal(square(-4), 16);
+        });
+
+        QUnit.test("Nulla négyzete", function (assert) {
+            assert.equal(square(0), 0);
+        });
+
+    </script>
+
+</body>
+
+</html>

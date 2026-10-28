@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <title>QUnit példa</title>
+
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-3.0.0.css">
+</head>
+
+<body>
+
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
+    <script src="https://code.jquery.com/qunit/qunit-3.0.0.js"></script>
+
+    <script>
+        function ship(orderValue, weight, country, express) {
+            let shippingCost = 0;
+            // Free shipping in Hungary for orders above 20,000 HUF
+            if (country === "HU" && orderValue >= 20000) {
+                return 0;
+            }
+            // Base shipping cost by weight
+            if (weight < 5) {
+                shippingCost = 1500;
+            } else if (weight > 5 && weight < 20) {
+                shippingCost = 2500;
+            } else {
+                shippingCost = 5000;
+            }
+            // International shipping
+            if (country !== "HU") {
+                shippingCost = shippingCost * 2;
+            }
+            // Express delivery surcharge
+            if (express === true) {
+                shippingCost = shippingCost + 50;
+            }
+
+            return shippingCost;
+        }
+
+        // QUnit tesztek
+        QUnit.module("Szallitasi koltseg");
+
+        QUnit.test("25k 10kg, HU, Express", function (assert) {
+            assert.equal(ship(25000, 10, "HU", true), 0);
+        });
+        QUnit.test("5k 15kg, UK, No Express", function (assert) {
+            assert.equal(ship(5000, 15, "UK", false), 5000);
+        });
+        QUnit.test("1k 1kg, HU, Express", function (assert) {
+            assert.equal(ship(1000, 1, "HU", true), 1550);
+        });
+        QUnit.test("50k 25kg, DE, Express", function (assert) {
+            assert.equal(ship(50000, 25, "DE", true), 10050);
+        });
+        QUnit.test("5k 1kg, HU, Express", function (assert) {
+            assert.equal(ship(5000, 1, "HU", true), 1550);
+        });
+        QUnit.test("5k 11.5kg, HU, no Express", function (assert) {
+            assert.equal(ship(5000, 11.5, "HU", false), 2500);
+        });
+        QUnit.test("2.5k 20kg, HU, no Express", function (assert) {
+            assert.equal(ship(2500, 20, "HU", false), 2500);
+        });
+        QUnit.test("1k 50kg, UK, no Express", function (assert) {
+            assert.equal(ship(1000, 50, "UK", false), 10000);
+        });
+        QUnit.test("3k 10kg, HU, Express", function (assert) {
+            assert.equal(ship(3, 10, "HU", true), 2500);
+        });
+        QUnit.test("0.4k 100kg, DE, Express", function (assert) {
+            assert.equal(ship(400, 100, "DE", true), 10050);
+        });
+
+    </script>
+
+</body>
+
+</html>
