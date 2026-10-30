@@ -1,7 +1,9 @@
 Arab-Római szám konvertáló, amely TDD fejleszéssel készült, Java alkalmazás, az 1-3999 tartományban operál.
 Szükséges hozzá: Java, Maven
+---
 A telepítéshez a RomanNumeralConverter.java fájlt az src/main mappában kell elhelyezni, a teszteket tartalmazó fájlt pedig, az src/test mappában.
 A tesztek a Maven segítségével futtatthatóak.
+---
 A projekt JUnit 5 keretrendszert használ. A tesztek a RomanNumeralConverterTest osztályban találhatók, és lefedik:
 1. Alapeset (`1 -> I`)
 2. Ismétlődés (`2 -> II`, `3 -> III`)
