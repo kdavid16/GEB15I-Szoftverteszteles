@@ -31,4 +31,17 @@ class BankServiceTest {
         verify(notificationService).send("Successful deposit");
 
     }
+
+    @Test
+    void invalidDepositTest() {
+        NotificationService notificationService = mock(NotificationService.class);
+        BankService bankService = new BankService(notificationService);
+        BankAccount account = new BankAccount();
+
+        bankService.deposit(account, -1000);
+        assertEquals(0, account.getBalance());
+
+        verify(notificationService).send("Successful deposit");
+
+    }
 }
